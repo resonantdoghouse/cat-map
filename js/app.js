@@ -1,12 +1,15 @@
 var map;
+
+// initialize map
 function initMap() {
 
+  // custom map styles from: https://snazzymaps.com/style/15/subtle-grayscale
   var styles = [
     {"featureType":"administrative","elementType":"all","stylers":[{"saturation":"-100"}]},{"featureType":"administrative.province","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"landscape","elementType":"all","stylers":[{"saturation":-100},{"lightness":65},{"visibility":"on"}]},{"featureType":"poi","elementType":"all","stylers":[{"saturation":-100},{"lightness":"50"},{"visibility":"simplified"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":"-100"}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"all","stylers":[{"lightness":"30"}]},{"featureType":"road.local","elementType":"all","stylers":[{"lightness":"40"}]},{"featureType":"transit","elementType":"all","stylers":[{"saturation":-100},{"visibility":"simplified"}]},{"featureType":"water","elementType":"geometry","stylers":[{"hue":"#ffff00"},{"lightness":-25},{"saturation":-97}]},{"featureType":"water","elementType":"labels","stylers":[{"lightness":-25},{"saturation":-100}]}
-];
+  ];
 
 
-  // Constructor creates a new map - only center and zoom are required.
+  // Constructor creates a new map
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 40.7413549, lng: -73.9980244},
     styles: styles,
@@ -21,22 +24,22 @@ function initMap() {
 
 
 
-
+// setup default data
 var initialLocations = [
   {
-    title: 'Park Ave Penthouse',
-    location: {
-      lat: 40.7713024,
-      lng: -73.9632393
+    title : 'Park Ave Penthouse',
+    location : {
+      lat : 40.7713024,
+      lng : -73.9632393
     }
   },
-  {title: 'Chelsea Loft', location: {lat: 40.7444883, lng: -73.9949465}},
-  {title: 'Union Square Open Floor Plan', location: {lat: 40.7347062, lng: -73.9895759}},
-  {title: 'East Village Hip Studio', location: {lat: 40.7281777, lng: -73.984377}},
-  {title: 'TriBeCa Artsy Bachelor Pad', location: {lat: 40.7195264, lng: -74.0089934}},
-  {title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
+  {title : 'Chelsea Loft', location : {lat : 40.7444883, lng : -73.9949465}}
 ]
 
+
+var Location = function(data){
+  this.title = ko.observable(data.title);
+};
 
 
 // old code
@@ -85,9 +88,7 @@ var initialLocations = [
 // ]
 
 
-var Location = function(data){
-  this.title = ko.observable(data.title);
-};
+
 
 
 // var Cat = function(data){
@@ -125,6 +126,13 @@ var ViewModel = function(){
   initialLocations.forEach(function(locationItem){
     self.locationList.push( new Location(locationItem) );
   });
+
+  this.currentLocation = ko.observable( this.locationList()[0] );
+
+  this.testClick = function(clickedItem){
+    self.currentLocation(clickedItem);
+    console.log(clickedItem.title);
+  };
 }
 
 // var ViewModel = function(){

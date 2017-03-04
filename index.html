@@ -22,7 +22,7 @@
         <div id="sidebar-options" class="sidebar-options col-lg-3 no-padd">
           <div class="list-group " data-bind="foreach: locationList">
             <a href="#" class="list-group-item list-group-item-action not-rounded"
-               data-bind="text: title, click: $parent.testClick"></a>
+               data-bind="text: title, attr: { 'data-id': id }, click: $parent.testClick"></a>
           </div>
 
           <div data-bind="with:currentLocation">

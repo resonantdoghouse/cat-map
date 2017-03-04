@@ -1,6 +1,40 @@
 var map;
 var markers = [];
 
+var initialLocations = [];
+/*
+* testing vanilla js get json jQuery alternative e.g.
+* $.getJSON("locations", function(data) {
+*    self.initialLocations(data);
+* })
+*/
+var request = new XMLHttpRequest();
+request.open('GET', 'locations.json', true);
+request.onload = function() {
+  if (request.status >= 200 && request.status < 400) {
+    // Success!
+    var data = JSON.parse(request.responseText);
+    //initialLocations.push(data);
+    for(var x in data){
+      console.log(x);
+      initialLocations.push(data[x]);
+    }
+    // console.log(initialLocations);
+
+    initMap();
+  } else {
+    // We reached our target server, but it returned an error
+  }
+};
+request.onerror = function() {
+  // There was a connection error of some sort
+  alert('connection to db not established');
+};
+request.send();
+
+//console.log(initialLocations);
+
+
 
 /*
 * initialize map and wrap functions
@@ -11,16 +45,14 @@ function initMap() {
   * custom map styles from: https://snazzymaps.com/style/15/subtle-grayscale
   * to create other styles modify the array below
   */
-  var styles = [
-    {"featureType":"administrative","elementType":"all","stylers":[{"saturation":"-100"}]},{"featureType":"administrative.province","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"landscape","elementType":"all","stylers":[{"saturation":-100},{"lightness":65},{"visibility":"on"}]},{"featureType":"poi","elementType":"all","stylers":[{"saturation":-100},{"lightness":"50"},{"visibility":"simplified"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":"-100"}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"all","stylers":[{"lightness":"30"}]},{"featureType":"road.local","elementType":"all","stylers":[{"lightness":"40"}]},{"featureType":"transit","elementType":"all","stylers":[{"saturation":-100},{"visibility":"simplified"}]},{"featureType":"water","elementType":"geometry","stylers":[{"hue":"#ffff00"},{"lightness":-25},{"saturation":-97}]},{"featureType":"water","elementType":"labels","stylers":[{"lightness":-25},{"saturation":-100}]}
-  ];
+  var styles = [{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"color":"#e0efef"}]},{"featureType":"poi","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"hue":"#1900ff"},{"color":"#c0e8e8"}]},{"featureType":"road","elementType":"geometry","stylers":[{"lightness":100},{"visibility":"simplified"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"visibility":"on"},{"lightness":700}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#7dcdcd"}]}]
 
 
   /*
   * Constructor setting up new map using the var 'map' and html id #map
   */
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 40.7413549, lng: -73.9980244},
+    center: {lat: 49.288312, lng: -123.0183267},
     styles: styles,
     zoom: 13
   });
@@ -29,23 +61,46 @@ function initMap() {
   /*
   * setup default data
   */
-  var initialLocations = [
-    {
-      id : 0,
-      title : 'Park Ave Penthouse',
-      location : {
-        lat : 40.7713024,
-        lng : -73.9632393
-      }
-    },
-    {
-      id : 1,
-      title : 'Chelsea Loft',
-      location : {lat : 40.7444883, lng : -73.9949465}
-    }
-  ]
+
+
+
+
+
+
+
+
 
   var largeInfowindow = new google.maps.InfoWindow();
+
+// var infoWindow = new google.maps.InfoWindow({map: map});
+// get users location
+  // Try HTML5 geolocation.
+//   if (navigator.geolocation) {
+//     navigator.geolocation.getCurrentPosition(function(position) {
+//       var pos = {
+//         lat: position.coords.latitude,
+//         lng: position.coords.longitude
+//       };
+//
+//       infoWindow.setPosition(pos);
+//       infoWindow.setContent('Location found.');
+//       map.setCenter(pos);
+//     }, function() {
+//       handleLocationError(true, infoWindow, map.getCenter());
+//     });
+//   } else {
+//     // Browser doesn't support Geolocation
+//     handleLocationError(false, infoWindow, map.getCenter());
+//   }
+// }
+//
+// function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+//   infoWindow.setPosition(pos);
+//   infoWindow.setContent(browserHasGeolocation ?
+//                         'Error: The Geolocation service failed.' :
+//                         'Error: Your browser doesn\'t support geolocation.');
+
+
 
 
   // The following group uses the location array to create an array of markers on initialize.

@@ -20,6 +20,30 @@
       <div class="row fit-viewport-height">
 
         <div id="sidebar-options" class="sidebar-options col-lg-3 no-padd">
+
+          <nav class="navbar navbar-inverse bg-inverse">
+            <a class="navbar-brand" href="#">
+              Cat Map
+            </a>
+
+            <div class="navbar-toggle-btn">
+              <button class="navbar-toggler" type="button"
+                      data-toggle="collapse"
+                      data-target="#navbarToggleExternalContent"
+                      aria-controls="navbarToggleExternalContent"
+                      aria-expanded="false"
+                      aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+            </div>
+
+            <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="text" placeholder="Search">
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+
+          </nav>
+
           <div class="list-group " data-bind="foreach: locationList">
             <a href="#" class="list-group-item list-group-item-action not-rounded"
                data-bind="text: title, attr: { 'data-id': id }, click: $parent.testClick"></a>

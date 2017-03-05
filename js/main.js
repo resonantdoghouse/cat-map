@@ -1,32 +1,50 @@
 
+// load JSON file, check for errors loading and push data to initialLocations
+var success = false;
 
-// Load JSON file for map data
-var request = new XMLHttpRequest();
-request.open('GET', 'locations.json', true);
-request.onload = function() {
-  if (request.status >= 200 && request.status < 400) {
-    // Success!
-    var data = JSON.parse(request.responseText);
-    //initialLocations.push(data);
-    for(var x in data){
-      console.log(x);
-      initialLocations.push(data[x]);
-    }
-
-    initMap();
-    initViewModel();
-    showAllMarkers();
-
-  } else {
-    // We reached our target server, but it returned an error
-    alert('server reached but error occured');
+$.getJSON('locations.json', function (data){
+  success = true;
+  // console.log(data);
+  // push the returned data into initialLocations array
+  for(var x in data){
+    // console.log(x);
+    initialLocations.push(data[x]);
   }
-};
-request.onerror = function() {
-  // There was a connection error of some sort
-  alert('connection to db not established');
-};
-request.send();
+  initMap();
+  initViewModel();
+  showAllMarkers();
+});
+
+// Set a 5-second (or however long you want) timeout to check for errors
+setTimeout(function() {
+    if (!success)
+    {
+        // Handle error accordingly
+        alert("JSON file did not load properly");
+    }
+}, 5000);
+
+//
+// $.ajax({
+//   dataType: 'json',
+//   url: "locations.json",
+//   data: data,
+//   success: success
+// });
+
+function success(data){
+  console.log('worked');
+}
+
+// $.getJSON("locations.json", function(data) {
+//
+//   initialLocations(data);
+//
+// });
+//
+// initMap();
+// initViewModel();
+// showAllMarkers();
 
 
 // bindable items referenced in View

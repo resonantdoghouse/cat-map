@@ -44,15 +44,6 @@
 		"oAP": "\/index.html",
 		"oF": 0
 		},
-	"\/js\/app.js": {
-		"ft": 64,
-		"mi": 0,
-		"oA": 1,
-		"oAP": "\/js\/min\/app-min.js",
-		"oF": 1,
-		"sC": 0,
-		"tS": 0
-		},
 	"\/js\/lib\/knockout-3.2.0.js": {
 		"ft": 64,
 		"mi": 1,
@@ -60,6 +51,24 @@
 		"oAP": "\/js\/lib\/min\/knockout-3.2.0-min.js",
 		"oF": 1,
 		"sC": 1,
+		"tS": 0
+		},
+	"\/js\/main.js": {
+		"ft": 64,
+		"mi": 0,
+		"oA": 1,
+		"oAP": "\/js\/min\/main-min.js",
+		"oF": 1,
+		"sC": 0,
+		"tS": 0
+		},
+	"\/js\/map.js": {
+		"ft": 64,
+		"mi": 0,
+		"oA": 1,
+		"oAP": "\/js\/min\/map-min.js",
+		"oF": 1,
+		"sC": 0,
 		"tS": 0
 		},
 	"\/locations.json": {

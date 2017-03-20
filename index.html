@@ -3,14 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Map Project</title>
-
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-
+    <!--<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"> -->
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
           integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
           crossorigin="anonymous">
-
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
@@ -19,39 +16,35 @@
     <div class="container-fluid fit-viewport-height">
       <div class="row fit-viewport-height">
 
-        <div id="sidebar-options" class="sidebar-options col-lg-3 no-padd">
-
+        <div id="sidebar-options" class="sidebar-options no-padd">
           <nav class="navbar navbar-inverse bg-inverse">
             <a class="navbar-brand" href="#">
               Cat Map
             </a>
 
-            <div class="navbar-toggle-btn">
-              <button class="navbar-toggler" type="button"
-                      data-toggle="collapse"
-                      data-target="#navbarToggleExternalContent"
-                      aria-controls="navbarToggleExternalContent"
-                      aria-expanded="false"
-                      aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-            </div>
+            <a href="#" id="sidebar-toggle-out">Toggle</a>
+            <a href="#" id="sidebar-toggle-in">Toggle</a>
 
-            <form  class="form-inline my-2 my-lg-0">
-              <input class="form-control mr-sm-2" type="text" placeholder="Search Cats">
-              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+
+            <button data-bind="click: showAllClicked" type="button" class="btn btn-primary">Show All</button>
+
+            <form class="form-inline">
+              <input class="form-control" type="text" placeholder="Search Cats">
+
+              <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
 
           </nav>
 
           <div class="list-group " data-bind="foreach: locationList">
-            <a href="#" class="list-group-item list-group-item-action not-rounded"
-               data-bind="text: title, attr: { 'data-id': id }, click: $parent.testClick"></a>
+            <a href="#"
+               class="list-group-item list-group-item-action not-rounded"
+               data-bind="text: title, attr: { 'data-id': id }, click: $parent.listClick">
+            </a>
           </div>
-
         </div>
 
-        <div class="col-lg-9 no-padd">
+        <div class="map-container no-padd">
           <div id="map"></div>
         </div>
 
@@ -60,7 +53,7 @@
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <!--<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
 
   <script src="js/lib/knockout-3.2.0.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-qoPjE_fHPfs_VwSNQPl4nnW2y2W537E&v=3"></script>

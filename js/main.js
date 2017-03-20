@@ -1,4 +1,52 @@
 
+var sidebarWidth = 0;
+
+// sidebar toggle out
+$('#sidebar-toggle-out').click(function(e){
+  e.preventDefault();
+
+  sidebarWidth = $('#sidebar-options').width();
+
+  $('.sidebar-options').animate({
+    left: - sidebarWidth
+  }, 500 );
+
+  $('.map-container').animate({
+    width: "100%",
+    left: "0%"
+  }, 500, function(){
+    google.maps.event.trigger(map, "resize");
+  });
+
+  $('#sidebar-toggle-in').css({
+    'display': 'block',
+    'left': sidebarWidth
+  });
+});
+
+// sidebar toggle in
+$('#sidebar-toggle-in').click(function(e){
+  e.preventDefault();
+
+  sidebarWidth = $('#sidebar-options').width();
+
+  $('.sidebar-options').animate({
+    left: 0
+  }, 500 );
+
+  $('.map-container').animate({
+    width: "75%",
+    left: "25%"
+  }, 500, function(){
+    google.maps.event.trigger(map, "resize");
+  });
+
+  $('#sidebar-toggle-in').css({
+    'display': 'none'
+  });
+});
+
+
 // load JSON file, check for errors loading and push data to initialLocations
 var success = false;
 
@@ -15,7 +63,7 @@ $.getJSON('locations.json', function (data){
   showAllMarkers();
 });
 
-// Set a 5-second (or however long you want) timeout to check for errors
+// Set a 5-second timeout to check for errors
 setTimeout(function() {
     if (!success)
     {
@@ -24,27 +72,10 @@ setTimeout(function() {
     }
 }, 5000);
 
-//
-// $.ajax({
-//   dataType: 'json',
-//   url: "locations.json",
-//   data: data,
-//   success: success
-// });
 
 function success(data){
   console.log('worked');
 }
-
-// $.getJSON("locations.json", function(data) {
-//
-//   initialLocations(data);
-//
-// });
-//
-// initMap();
-// initViewModel();
-// showAllMarkers();
 
 
 // bindable items referenced in View
@@ -54,7 +85,10 @@ var Location = function(data){
 };
 
 
-// knockout view
+/*
+* Knockout ViewModel
+* & Functions
+*/
 var ViewModel = function(){
   var self = this;
   this.locationList = ko.observableArray([]);
@@ -65,8 +99,8 @@ var ViewModel = function(){
 
   this.currentLocation = ko.observable(this.locationList()[0]);
 
-  // testing click function
-  this.testClick = function(clickedItem){
+  // click function for items in list
+  this.listClick = function(clickedItem){
     self.currentLocation(clickedItem);
     //console.log(ko.toJSON(clickedItem.title));
     var bounds = new google.maps.LatLngBounds();
@@ -78,6 +112,12 @@ var ViewModel = function(){
     var zoom = map.getZoom();
     map.setZoom(zoom > 15 ? 15 : zoom);
   };
+
+  // show all markers
+  this.showAllClicked = function(){
+    showAllMarkers();
+  }
+
 
 }
 

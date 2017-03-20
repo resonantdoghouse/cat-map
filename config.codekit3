@@ -7,7 +7,7 @@
 		"uuidString": "A879814D-9092-4F2A-8552-565A859A478C"
 		}
 	],
-"creatorBuild": "25568",
+"creatorBuild": "25704",
 "files": {
 	"\/.gitignore": {
 		"ft": 8192,
@@ -37,6 +37,33 @@
 		"oF": 0,
 		"oS": 0,
 		"uL": 1
+		},
+	"\/img\/blep-lick.jpg": {
+		"ft": 16384,
+		"iS": 451497,
+		"oA": 0,
+		"oAP": "\/img\/blep-lick.jpg",
+		"oF": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/img\/scully-flask.jpg": {
+		"ft": 16384,
+		"iS": 991567,
+		"oA": 0,
+		"oAP": "\/img\/scully-flask.jpg",
+		"oF": 0,
+		"opt": 0,
+		"q": 100
+		},
+	"\/img\/trex-facepaw.jpg": {
+		"ft": 16384,
+		"iS": 638857,
+		"oA": 0,
+		"oAP": "\/img\/trex-facepaw.jpg",
+		"oF": 0,
+		"opt": 0,
+		"q": 100
 		},
 	"\/index.html": {
 		"ft": 8192,
@@ -5524,6 +5551,10 @@
 			"active": 1,
 			"optionString": ""
 			},
+		"no-compare-neg-zero": {
+			"active": 0,
+			"optionString": ""
+			},
 		"no-cond-assign": {
 			"active": 1,
 			"optionString": "'except-parens'"
@@ -6003,6 +6034,10 @@
 		"no-with": {
 			"active": 0,
 			"optionString": ""
+			},
+		"nonblock-statement-body-position": {
+			"active": 0,
+			"optionString": "'beside'"
 			},
 		"object-curly-newline": {
 			"active": 0,
@@ -6603,7 +6638,8 @@
 		"autoOutputPathRelativePath": "",
 		"autoOutputPathReplace1": "",
 		"autoOutputPathReplace2": "",
-		"autoOutputPathStyle": 0
+		"autoOutputPathStyle": 0,
+		"quality": 100
 		},
 	"languageDefaultsJS": {
 		"autoOutputAction": 0,
@@ -6696,7 +6732,9 @@
 		"autoOutputPathRelativePath": "",
 		"autoOutputPathReplace1": "",
 		"autoOutputPathReplace2": "",
-		"autoOutputPathStyle": 0
+		"autoOutputPathStyle": 0,
+		"enableLossy": 1,
+		"quality": 100
 		},
 	"languageDefaultsPUG": {
 		"autoOutputAction": 0,

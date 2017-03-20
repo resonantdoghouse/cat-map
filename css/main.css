@@ -19,8 +19,25 @@ html, body {
 .not-rounded:last-child {
   border-radius: 0; }
 
-#map {
+.map-container {
+  position: relative;
+  left: 25%;
+  width: 75%;
   height: 100%; }
+  .map-container #map {
+    height: 100%; }
 
 .sidebar-options {
-  background: white; }
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 99;
+  background: white;
+  width: 25%; }
+  .sidebar-options #sidebar-toggle-in {
+    position: absolute;
+    top: 25%;
+    display: none; }
+  .sidebar-options button {
+    cursor: pointer; }

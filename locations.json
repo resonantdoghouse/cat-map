@@ -1,7 +1,7 @@
 [
   {
     "id" : 0,
-    "title" : "Squint Lake Park",
+    "name" : "Squint Lake Park",
     "location" : {
       "lat" : 49.2677485,
       "lng" : -122.9432344
@@ -11,7 +11,7 @@
   },
   {
     "id" : 1,
-    "title" : "Burnaby Heights Park",
+    "name" : "Burnaby Heights Park",
     "location" : {
       "lat" : 49.288326,
       "lng" : -123.019207

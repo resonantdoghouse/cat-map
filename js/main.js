@@ -1,67 +1,20 @@
-
-var sidebarWidth = 0;
-
-// sidebar toggle out
-$('#sidebar-toggle-out').click(function(e){
-  e.preventDefault();
-
-  sidebarWidth = $('#sidebar-options').width();
-
-  $('.sidebar-options').animate({
-    left: - sidebarWidth
-  }, 500 );
-
-  $('.map-container').animate({
-    width: "100%",
-    left: "0%"
-  }, 500, function(){
-    google.maps.event.trigger(map, "resize");
-  });
-
-  $('#sidebar-toggle-in').css({
-    'display': 'block',
-    'left': sidebarWidth
-  });
-});
-
-// sidebar toggle in
-$('#sidebar-toggle-in').click(function(e){
-  e.preventDefault();
-
-  sidebarWidth = $('#sidebar-options').width();
-
-  $('.sidebar-options').animate({
-    left: 0
-  }, 500 );
-
-  $('.map-container').animate({
-    width: "75%",
-    left: "25%"
-  }, 500, function(){
-    google.maps.event.trigger(map, "resize");
-  });
-
-  $('#sidebar-toggle-in').css({
-    'display': 'none'
-  });
-});
-
-
 // load JSON file, check for errors loading and push data to initialLocations
 var success = false;
 
-$.getJSON('locations.json', function (data){
+$.getJSON('//catmap.catkittycat.com/api/cats', function (data){
   success = true;
-  // console.log(data);
+  
   // push the returned data into initialLocations array
   for(var x in data){
-    // console.log(x);
-    initialLocations.push(data[x]);
+		initialLocations.push(data[x]);
   }
+  
   initMap();
   initViewModel();
   showAllMarkers();
+  
 });
+
 
 // Set a 5-second timeout to check for errors
 setTimeout(function() {
@@ -78,10 +31,19 @@ function success(data){
 }
 
 
+ko.utils.stringStartsWith = function(string, startsWith) {
+    string = string || "";
+    if (startsWith.length > string.length) return false;
+    return string.substring(0, startsWith.length) === startsWith;
+};
+
+
 // bindable items referenced in View
 var Location = function(data){
   this.id = ko.observable(data.id);
-  this.title = ko.observable(data.title);
+  this.name = ko.observable(data.name);
+  this.lat = ko.observable(data.lat);
+  this.lng = ko.observable(data.lng);
 };
 
 
@@ -91,33 +53,74 @@ var Location = function(data){
 */
 var ViewModel = function(){
   var self = this;
-  this.locationList = ko.observableArray([]);
+  self.locationList = ko.observableArray([]);
 
   initialLocations.forEach(function(locationItem){
     self.locationList.push( new Location(locationItem) );
   });
 
-  this.currentLocation = ko.observable(this.locationList()[0]);
+  self.currentLocation = ko.observable(this.locationList()[0]);
+
 
   // click function for items in list
-  this.listClick = function(clickedItem){
+  self.listClick = function(clickedItem){
+	  
     self.currentLocation(clickedItem);
     //console.log(ko.toJSON(clickedItem.title));
+    
     var bounds = new google.maps.LatLngBounds();
     var clickedId = ko.toJSON(clickedItem.id);
-    //console.log(clickedId);
-    markers[clickedId].setMap(map);
-    bounds.extend(markers[clickedId].position);
+    var clickedIdTrim = clickedId.replace(/['"]+/g, '');
+
+    markers[clickedIdTrim].setMap(map);
+    
+		markers[clickedIdTrim].setAnimation(google.maps.Animation.BOUNCE);
+		
+		setTimeout(function(){ markers[clickedIdTrim].setAnimation(null); }, 2200);
+		
+    bounds.extend(markers[clickedIdTrim].position);
+		
     map.fitBounds(bounds);
     var zoom = map.getZoom();
     map.setZoom(zoom > 15 ? 15 : zoom);
   };
 
-  // show all markers
-  this.showAllClicked = function(){
+
+  // show and hide all markers
+  self.showAllClicked = function(){
     showAllMarkers();
   }
+  self.hideAllClicked = function(){
+    hideAllMarkers();
+  }
 
+	
+	// Filter list by text search
+  self.nameSearch = ko.observable('');
+
+  self.filteredRecords = ko.computed(function () {
+	  
+      var nameSearch = self.nameSearch().toLowerCase();
+      
+      return ko.utils.arrayFilter(self.locationList(), function (r) {
+          return r.name().toLowerCase().indexOf(nameSearch) !== -1;
+      });
+      
+      
+     
+  });
+  
+  // monitor change in array and update map
+  self.filteredRecords.subscribe(function (updateList) {
+	  
+	  refineMarkers(updateList);
+	  
+  	//console.log(updateList);
+	});
+  
+  	
+  
+  
 
 }
 

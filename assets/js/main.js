@@ -1,20 +1,18 @@
-// TODO: move js files to assets folder and add gulp build min 
-
 // load JSON file, check for errors loading and push data to initialLocations
 var success = false;
 
 $.getJSON('//catmap.catkittycat.com/api/cats', function (data){
   success = true;
-
+  
   // push the returned data into initialLocations array
   for(var x in data){
 		initialLocations.push(data[x]);
   }
-
+  
   initMap();
   initViewModel();
   showAllMarkers();
-
+  
 });
 
 
@@ -66,22 +64,22 @@ var ViewModel = function(){
 
   // click function for items in list
   self.listClick = function(clickedItem){
-
+	  
     self.currentLocation(clickedItem);
     //console.log(ko.toJSON(clickedItem.title));
-
+    
     var bounds = new google.maps.LatLngBounds();
     var clickedId = ko.toJSON(clickedItem.id);
     var clickedIdTrim = clickedId.replace(/['"]+/g, '');
 
     markers[clickedIdTrim].setMap(map);
-
+    
 		markers[clickedIdTrim].setAnimation(google.maps.Animation.BOUNCE);
-
+		
 		setTimeout(function(){ markers[clickedIdTrim].setAnimation(null); }, 2200);
-
+		
     bounds.extend(markers[clickedIdTrim].position);
-
+		
     map.fitBounds(bounds);
     var zoom = map.getZoom();
     map.setZoom(zoom > 15 ? 15 : zoom);
@@ -96,33 +94,33 @@ var ViewModel = function(){
     hideAllMarkers();
   }
 
-
+	
 	// Filter list by text search
   self.nameSearch = ko.observable('');
 
   self.filteredRecords = ko.computed(function () {
-
+	  
       var nameSearch = self.nameSearch().toLowerCase();
-
+      
       return ko.utils.arrayFilter(self.locationList(), function (r) {
           return r.name().toLowerCase().indexOf(nameSearch) !== -1;
       });
-
-
-
+      
+      
+     
   });
-
+  
   // monitor change in array and update map
   self.filteredRecords.subscribe(function (updateList) {
-
+	  
 	  refineMarkers(updateList);
-
+	  
   	//console.log(updateList);
 	});
-
-
-
-
+  
+  	
+  
+  
 
 }
 

@@ -8,7 +8,7 @@ var gulp = require('gulp'),
 
 
 gulp.task('styles', function() {
-    return gulp.src('./assets/styles/main.css')
+    return gulp.src('./assets/styles/styles.css')
         .pipe(postcss([cssImport, mixins, cssvars, nested, autoprefixer]))
         .on('error', function(errorInfo){
             console.log(errorInfo.toString());

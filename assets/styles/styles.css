@@ -3,10 +3,10 @@ $black: #000;
 $green: #5cb85c;
 
 // If these widths change also update sidebar.js
-$mapWidthLg: 80%;
+// $mapWidthLg: 80%;
 $mapWidthMd: 70%;
 $mapWidthSm: 65%;
- 
+
 $sidebarWidthLg: 20%;
 $sidebarWidthMd: 30%;
 $sidebarWidthSm: 35%;
@@ -102,7 +102,7 @@ html, body {
 
   @media screen and (min-width: $lgBreakpoint){
 	  left: $sidebarWidthLg;
-	  width: $mapWidthLg;
+	  width: 80%;
   }
 
   #map {

@@ -1,0 +1,181 @@
+@import 'partials/variables';
+
+html, body {
+  height: 100%;
+  background-color: #333;
+
+  display: flex;
+}
+
+.top-navbar {
+  margin-bottom: .5em;
+
+  .navbar-brand {
+    margin: 0;
+    padding: 0;
+
+  }
+
+  .toggle-btn {
+    float: right;
+    img {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+}
+
+.cat-filter {
+
+  input.cat-filter-input {
+    max-width: 140px;
+  }
+
+  .btn-addcat {
+    padding: .8em;
+    //animation: colorPulse 5s infinite;
+    svg {
+      animation: colorPulseSVG 10s infinite;
+      height: 32px;
+      width: 32px;
+    }
+    &:after {
+      content: '+';
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+}
+
+.fit-viewport-height {
+  height: 100vh;
+}
+
+.site-wrapper {
+  display: table;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+}
+
+.no-padd {
+  padding: 0;
+}
+
+.not-rounded,
+.not-rounded:first-child,
+.not-rounded:last-child {
+  border-radius: 0;
+}
+
+.map-container {
+  position: relative;
+  height: 100%;
+
+  left: $sidebarWidthSm;
+  width: $mapWidthSm;
+
+  @media screen and (min-width: $mdBreakpoint) {
+    left: $sidebarWidthMd;
+    width: $mapWidthMd;
+  }
+
+  @media screen and (min-width: $lgBreakpoint) {
+    left: $sidebarWidthLg;
+    width: 80%;
+  }
+
+  #map {
+    height: 100%;
+  }
+}
+
+.navbar-brand {
+  display: inline-block;
+}
+
+.sidebar-options {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 99;
+  background: white;
+  width: $sidebarWidthMd;
+
+  @media screen and (max-width: $mdBreakpoint) {
+    width: $sidebarWidthSm;
+  }
+
+  @media screen and (min-width: $lgBreakpoint) {
+    width: $sidebarWidthLg;
+  }
+
+  .navbar-toggle-btn {
+  }
+
+  .sidebar-control-buttons {
+    flex-wrap: wrap;
+  }
+
+  #sidebar-toggle-in {
+    animation: fadeIn 3000ms;
+    position: absolute;
+    top: .5em;
+    padding-left: .5em;
+    display: none;
+    img {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+}
+
+.gm-style-iw {
+  text-align: center;
+  overflow: scroll;
+}
+
+.info-box-custom {
+  text-align: center;
+  animation: fadeIn 2000ms;
+}
+
+.infoBox {
+  animation: fadeIn 1000ms;
+}
+
+// Animations
+
+/* Fade Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes colorPulseSVG {
+  0% {
+    fill: $white;
+  }
+  50% {
+    fill: $green;
+  }
+  100% {
+    fill: $white;
+  }
+}

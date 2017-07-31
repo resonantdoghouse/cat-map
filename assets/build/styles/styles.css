@@ -1,168 +1,136 @@
-// If these widths change also update sidebar.js
-// $mapWidthLg: 80%;
 html, body {
   height: 100%;
   background-color: #333;
-}
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex; }
+
 .top-navbar {
-	margin-bottom: .5em;
+  margin-bottom: .5em; }
+  .top-navbar .navbar-brand {
+    margin: 0;
+    padding: 0; }
+  .top-navbar .toggle-btn {
+    float: right; }
+    .top-navbar .toggle-btn img {
+      width: 18px;
+      height: 18px; }
 
-}
-.top-navbar .navbar-brand {
-		margin: 0;
-		padding: 0;
-
-	}
-.top-navbar .toggle-btn {
-		float: right;
-	}
-.top-navbar .toggle-btn img {
-			width: 18px;
-			height: 18px;
-		}
 .cat-filter input.cat-filter-input {
-		max-width: 140px;
-	}
+  max-width: 140px; }
+
 .cat-filter .btn-addcat {
-		padding: .8em;
-		//animation: colorPulse 5s infinite;
-	}
-.cat-filter .btn-addcat svg {
-			-webkit-animation: colorPulseSVG 10s infinite;
-			        animation: colorPulseSVG 10s infinite;
-			height: 32px;
-			width: 32px;
-		}
-.cat-filter .btn-addcat:after {
-			content: '+';
-			display: inline-block;
-			vertical-align: top;
-		}
-.cat-filter .btn-addcat:hover {
-			text-decoration: none;
-		}
+  padding: .8em; }
+  .cat-filter .btn-addcat svg {
+    -webkit-animation: colorPulseSVG 10s infinite;
+    animation: colorPulseSVG 10s infinite;
+    height: 32px;
+    width: 32px; }
+  .cat-filter .btn-addcat:after {
+    content: '+';
+    display: inline-block;
+    vertical-align: top; }
+  .cat-filter .btn-addcat:hover {
+    text-decoration: none; }
+
 .fit-viewport-height {
-  height: 100vh;
-}
+  height: 100vh; }
+
 .site-wrapper {
   display: table;
   width: 100%;
   height: 100%;
-  min-height: 100%;
-}
+  min-height: 100%; }
+
 .no-padd {
-  padding: 0;
-}
+  padding: 0; }
+
 .not-rounded,
 .not-rounded:first-child,
 .not-rounded:last-child {
-	border-radius: 0;
-}
+  border-radius: 0; }
+
 .map-container {
   position: relative;
   height: 100%;
-
   left: 35%;
-  width: 65%;
-}
-@media screen and (min-width: 800px){
-.map-container {
-	  left: 30%;
-	  width: 70%
-}
-  }
-@media screen and (min-width: 1200px){
-.map-container {
-	  left: 20%;
-	  width: 80%
-}
-  }
-.map-container #map {
-    height: 100%;
-  }
+  width: 65%; }
+  @media screen and (min-width: 800px) {
+    .map-container {
+      left: 30%;
+      width: 70%; } }
+  @media screen and (min-width: 1200px) {
+    .map-container {
+      left: 20%;
+      width: 80%; } }
+  .map-container #map {
+    height: 100%; }
+
 .navbar-brand {
-	display: inline-block;
-}
+  display: inline-block; }
+
 .sidebar-options {
   position: absolute;
   left: 0;
   top: 0;
   bottom: 0;
   z-index: 99;
-  background:white;
-  width: 30%;
-
-}
-@media screen and (max-width: 800px){
-.sidebar-options {
-	  width: 35%
-
-}
-  }
-@media screen and (min-width: 1200px){
-.sidebar-options {
-	  width: 20%
-
-}
-  }
-.sidebar-options .navbar-toggle-btn {  }
-.sidebar-options .sidebar-control-buttons {
-	  -ms-flex-wrap: wrap;
-	      flex-wrap: wrap;
-	}
-.sidebar-options #sidebar-toggle-in {
-	  -webkit-animation: fadeIn 3000ms;
-	          animation: fadeIn 3000ms;
+  background: white;
+  width: 30%; }
+  @media screen and (max-width: 800px) {
+    .sidebar-options {
+      width: 35%; } }
+  @media screen and (min-width: 1200px) {
+    .sidebar-options {
+      width: 20%; } }
+  .sidebar-options .sidebar-control-buttons {
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap; }
+  .sidebar-options #sidebar-toggle-in {
+    -webkit-animation: fadeIn 3000ms;
+    animation: fadeIn 3000ms;
     position: absolute;
     top: .5em;
     padding-left: .5em;
-    display: none;
-  }
-.sidebar-options #sidebar-toggle-in img {
-	    width: 24px;
-	    height: 24px;
-    }
-.sidebar-options button { cursor: pointer; }
+    display: none; }
+    .sidebar-options #sidebar-toggle-in img {
+      width: 24px;
+      height: 24px; }
+  .sidebar-options button {
+    cursor: pointer; }
+
 .gm-style-iw {
-  text-align:center;
-  overflow: scroll;
-}
+  text-align: center;
+  overflow: scroll; }
+
 .info-box-custom {
-  text-align:center;
+  text-align: center;
   -webkit-animation: fadeIn 2000ms;
-          animation: fadeIn 2000ms;
-}
+  animation: fadeIn 2000ms; }
+
 .infoBox {
--webkit-animation: fadeIn 1000ms;
-        animation: fadeIn 1000ms;
-}
-// Animations
+  -webkit-animation: fadeIn 1000ms;
+  animation: fadeIn 1000ms; }
 
+/* Fade Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
 
-@keyframes fadeIn from {opacity: 0;}
-// Animations
-
-
-@keyframes fadeIn to {opacity: 1;}
 @-webkit-keyframes colorPulseSVG {
   0% {
-    fill: #fff;
-  }
+    fill: #fff; }
   50% {
-    fill: #5cb85c;
-  }
+    fill: #5cb85c; }
   100% {
-	  fill: #fff;
-  }
-}
+    fill: #fff; } }
+
 @keyframes colorPulseSVG {
   0% {
-    fill: #fff;
-  }
+    fill: #fff; }
   50% {
-    fill: #5cb85c;
-  }
+    fill: #5cb85c; }
   100% {
-	  fill: #fff;
-  }
-}
+    fill: #fff; } }

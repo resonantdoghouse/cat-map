@@ -5,8 +5,8 @@ var gulp = require('gulp'),
 
 
 // File paths
-var CSS_BUILD_PATH = './assets/build/styles',
-    CSS_PATH = './assets/styles/**/*.scss';
+var CSS_BUILD_PATH = './public/assets/build/styles',
+    CSS_PATH = './public/assets/styles/**/*.scss';
 
 
 gulp.task('default', function() {

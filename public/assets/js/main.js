@@ -58,7 +58,7 @@ var Location = function (data) {
 
 
 /**
- * KnockOut View Model
+ * KnockOut view model
  *
  * @constructor
  *
@@ -77,7 +77,7 @@ var ViewModel = function () {
 
 
     /**
-     * Click List Handler
+     * Click list handler
      *
      * @param clickedItem
      * @param index
@@ -107,7 +107,7 @@ var ViewModel = function () {
 
 
     /**
-     * show  all markers
+     * Show  all markers
      */
     self.showAllClicked = function () {
 
@@ -116,7 +116,7 @@ var ViewModel = function () {
     }
 
     /**
-     * hide all markers
+     * Hide all markers
      */
     self.hideAllClicked = function () {
         hideAllMarkers();
@@ -142,10 +142,15 @@ var ViewModel = function () {
 
 
     /**
-     * monitor change in array and update map
+     * Monitor change in array and update map
      */
     self.filteredRecords.subscribe(function (updateList) {
 
+        /**
+         *  Fliters & sets markers
+         *  function in map.js
+         */
+        filters & sets markers
         refineMarkers(updateList);
 
     });
@@ -155,8 +160,10 @@ var ViewModel = function () {
 
 
 /**
- * init ViewModel
+ * Init view model
  */
 function initViewModel() {
+
     ko.applyBindings(new ViewModel());
+
 }

@@ -1,3 +1,8 @@
-# Cat Map!
+# CMap
 
-to run first clone the repo, then npm install. Run with gulp watch :)
+### Google map for cats
+
+to run first clone the repo
+run npm install. 
+
+Gulp

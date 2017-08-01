@@ -1,25 +1,26 @@
 /**
- * setup variables for data and functions
+ * Setup variables data & functions
  */
 var map,
     showAllMarkers,
     hideAllMarkers,
     markers = [],
     initialLocations = [],
-    positionObj = {};
+    positionObj = {},
+    imageMarkerUrl = './img/paw.png';
 
 
 /**
- * initialize the map
- *
+ * Initialize the map
  */
 function initMap() {
 
     var imageMarker = {
-        url: '/cat-map/img/paw.png',
+        url: imageMarkerUrl,
         size: new google.maps.Size(34, 32),
         origin: new google.maps.Point(0, 0)
     };
+
 
     // custom map styles from: https://snazzymaps.com/
     var styles = [{
@@ -46,6 +47,7 @@ function initMap() {
 
 
     /**
+     * Setup info window to populate
      *
      * @type {google.maps.InfoWindow}
      */
@@ -66,7 +68,7 @@ function initMap() {
 
 
     /**
-     * loop through initialLocations
+     * Loop through initialLocations
      */
     for (var i = 0; i < initialLocations.length; i++) {
 
@@ -76,6 +78,7 @@ function initMap() {
             img = initialLocations[i]._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url,
             description = initialLocations[i].content.rendered;
 
+        // Object to hold  lat lng for markers
         positionObj = {lat: latNum, lng: lngNum};
 
 
@@ -111,7 +114,7 @@ function initMap() {
 
 
     /**
-     *
+     * Populate info windows
      * @param marker
      * @param infowindow
      */
@@ -146,7 +149,7 @@ function initMap() {
 
 
     /**
-     * Show Markers
+     * Set and show markers
      */
     showAllMarkers = function (data) {
 
@@ -164,11 +167,11 @@ function initMap() {
 
         map.fitBounds(bounds);
 
-
     }
 
+
     /**
-     * Hide Markers
+     * Hide all markers
      */
     hideAllMarkers = function () {
         for (var i = 0; i < markers.length; i++) {
@@ -178,17 +181,18 @@ function initMap() {
 
 
     /**
-     * search filter
+     * Search filter refine markers
      *
      * @param data
      */
     refineMarkers = function (data) {
+
         hideAllMarkers();
         var bounds = new google.maps.LatLngBounds();
 
         $(data).each(function (i) {
-            var filterLat = data[i].lat();
-            var filterLng = data[i].lng();
+            // var filterLat = data[i].lat();
+            // var filterLng = data[i].lng();
 
             markers[i].setMap(map);
             bounds.extend(markers[i].position);

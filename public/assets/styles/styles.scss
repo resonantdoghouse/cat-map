@@ -1,9 +1,7 @@
 @import 'partials/variables';
+@import 'partials/mixins';
+@import 'partials/base';
 
-html, body {
-  height: 100%;
-  background-color: #333;
-}
 
 .top-navbar {
   margin-bottom: .5em;
@@ -11,7 +9,6 @@ html, body {
   .navbar-brand {
     margin: 0;
     padding: 0;
-
   }
 
   .toggle-btn {
@@ -94,9 +91,6 @@ html, body {
   }
 }
 
-.navbar-brand {
-  display: inline-block;
-}
 
 .sidebar-options {
   position: absolute;
@@ -140,6 +134,13 @@ html, body {
 
 }
 
+
+
+
+/**
+ * Google Maps Style
+ * Info boxes and canvas
+ */
 .gm-style-iw {
   text-align: center;
   overflow: scroll;
@@ -153,6 +154,36 @@ html, body {
 .infoBox {
   animation: fadeIn 1000ms;
 }
+
+
+/**
+ * Variables
+ */
+
+$navbar-color: darkslategrey;
+
+/**
+ *
+ *
+ */
+.sidebar-options {
+
+  &__nav {
+    background: $navbar-color;
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
 // Animations
 

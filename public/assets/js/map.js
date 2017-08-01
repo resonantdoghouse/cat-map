@@ -7,7 +7,8 @@ var map,
     markers = [],
     initialLocations = [],
     positionObj = {},
-    imageMarkerUrl = './img/paw.png';
+    imageMarkerUrl = './img/paw.png',
+    defaultZoom = 14;
 
 
 /**
@@ -62,7 +63,7 @@ function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 49.288312, lng: -123.0183267},
         styles: styles,
-        zoom: 13,
+        zoom: defaultZoom,
         mapTypeControl: false
     });
 
@@ -141,7 +142,9 @@ function initMap() {
             infowindow.open(map, marker);
 
             infowindow.addListener('closeclick', function () {
+
                 infowindow.setMarker = null;
+
             });
 
         }
@@ -153,8 +156,7 @@ function initMap() {
      */
     showAllMarkers = function (data) {
 
-        var bounds = new google.maps.LatLngBounds(),
-            resultTotal;
+        var bounds = new google.maps.LatLngBounds(), resultTotal;
 
         // Extend the boundaries of the map for each marker and display the marker
         for (var i = 0; i < markers.length; i++) {
@@ -165,6 +167,8 @@ function initMap() {
 
         }
 
+        ZoomObj.zoom();
+
         map.fitBounds(bounds);
 
     }
@@ -174,9 +178,11 @@ function initMap() {
      * Hide all markers
      */
     hideAllMarkers = function () {
+
         for (var i = 0; i < markers.length; i++) {
             markers[i].setMap(null);
         }
+
     }
 
 
@@ -188,19 +194,51 @@ function initMap() {
     refineMarkers = function (data) {
 
         hideAllMarkers();
+
         var bounds = new google.maps.LatLngBounds();
 
         $(data).each(function (i) {
-            // var filterLat = data[i].lat();
-            // var filterLng = data[i].lng();
 
             markers[i].setMap(map);
+
             bounds.extend(markers[i].position);
 
         });
 
+        ZoomObj.zoom();
+
         map.fitBounds(bounds);
 
+    }
+
+
+    /**
+     * Google map event listener
+     * bounds changed check zoom
+     */
+    ZoomObj = {
+        zoom: function () {
+
+            zoom = map.getZoom();
+
+            google.maps.event.addListenerOnce(map, 'bounds_changed', function () {
+                //
+                // function applyZoom(){
+                //     map.setZoom(defaultZoom);
+                // }
+                // setTimeout(applyZoom, 100);
+
+                map.setZoom(zoom > 15 ? 15 : zoom);
+
+
+                // var currentZoom = this.getZoom();
+                // if (currentZoom > defaultZoom || currentZoom < defaultZoom) {
+                // this.setZoom(defaultZoom);
+                // }
+
+            });
+
+        }
     }
 
 

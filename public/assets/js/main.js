@@ -4,7 +4,12 @@
  * Ajax request
  *
  */
-$.getJSON('http://localhost:8888/wpdev/wp-json/wp/v2/cats-api?_embed&per_page=10')
+$.ajax({
+    url: 'http://localhost:8888/wpdev/wp-json/wp/v2/cats-api?_embed&per_page=10',
+    async: true,
+    dataType: 'json',
+    type: 'GET'
+})
     .done(function (data) {
 
             // push the returned data into initialLocations array
@@ -75,7 +80,6 @@ var ViewModel = function () {
 
     });
 
-
     /**
      * Click list handler
      *
@@ -86,8 +90,7 @@ var ViewModel = function () {
     self.listClick = function (clickedItem, index) {
 
         var currentTarget = index.currentTarget.attributes[3].nodeValue,
-            bounds = new google.maps.LatLngBounds(),
-            zoom = map.getZoom();
+            bounds = new google.maps.LatLngBounds();
 
         markers[currentTarget].setMap(map);
         markers[currentTarget].setAnimation(google.maps.Animation.BOUNCE);
@@ -102,7 +105,8 @@ var ViewModel = function () {
 
         map.fitBounds(bounds);
 
-        map.setZoom(zoom > 15 ? 15 : zoom);
+        ZoomObj.zoom();
+
     };
 
 
@@ -119,7 +123,9 @@ var ViewModel = function () {
      * Hide all markers
      */
     self.hideAllClicked = function () {
+
         hideAllMarkers();
+
     }
 
 
@@ -149,8 +155,9 @@ var ViewModel = function () {
         /**
          *  Fliters & sets markers
          *  function in map.js
+         *  filters & sets markers
          */
-        filters & sets markers
+
         refineMarkers(updateList);
 
     });

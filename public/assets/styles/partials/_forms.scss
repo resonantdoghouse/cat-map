@@ -1,0 +1,11 @@
+.cat-filter {
+  //padding: 1em;
+  margin: 1em;
+  input {
+    width: 100%;
+    padding: .3em;
+    &::placeholder {
+      color: $black;
+    }
+  }
+}

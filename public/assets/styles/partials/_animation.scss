@@ -1,0 +1,26 @@
+/**
+ * Animations
+ *
+ */
+
+/* Fade Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes colorPulseSVG {
+  0% {
+    fill: $white;
+  }
+  50% {
+    fill: $green;
+  }
+  100% {
+    fill: $white;
+  }
+}

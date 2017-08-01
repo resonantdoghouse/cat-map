@@ -1,0 +1,61 @@
+/**
+ * Logo
+ *
+ */
+.logo {
+  margin: 0 0 1em 1em;
+  padding: 1em 0 0 0;
+  font-size: 1em;
+  display: inline-block;
+}
+
+#sidebar-toggle-in {
+  animation: fadeIn 3000ms;
+  position: absolute;
+  top: .5em;
+  padding-left: .5em;
+  display: none;
+  img {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/**
+ * Sidebar
+ *
+ */
+.sidebar-options {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 99;
+  background: rgba(255,255,255,0.9);
+  width: $sidebarWidthMd;
+
+  @media screen and (max-width: $mdBreakpoint) {
+    width: $sidebarWidthSm;
+  }
+
+  @media screen and (min-width: $lgBreakpoint) {
+    width: $sidebarWidthLg;
+  }
+
+  &__nav {
+    background: $navbar-color;
+  }
+
+  &__nav__header {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-content: space-between;
+  }
+
+  &__show-hide {
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+}

@@ -7,7 +7,7 @@ var map,
     markers = [],
     initialLocations = [],
     positionObj = {},
-    imageMarkerUrl = './img/paw.png',
+    imageMarkerUrl = './assets/img/paw.png',
     defaultZoom = 14;
 
 

@@ -1,10 +1,30 @@
 .cat-filter {
-  //padding: 1em;
-  margin: 1em;
+  background: $black;
+
   input {
+
+    text-align: center;
+    border:none;
+
     width: 100%;
-    padding: .3em;
+    padding: .5em;
+
+    letter-spacing:1px;
+
+    background:$white;
+    color:$black;
+
+
+
+    transition:.5s;
+    &:focus {
+      outline:0;
+      background:$black;
+      color: $white;
+    }
+
     &::placeholder {
+      letter-spacing:1px;
       color: $black;
     }
   }

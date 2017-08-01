@@ -52,7 +52,39 @@ function initMap() {
      *
      * @type {google.maps.InfoWindow}
      */
-    var largeInfowindow = new google.maps.InfoWindow();
+    var largeInfowindow = new google.maps.InfoWindow({
+        padding: 0
+    });
+
+
+    /**
+     * The google.maps.event.addListener() event waits for
+     * the creation of the infowindow HTML structure 'domready'
+     * and before the opening of the infowindow defined styles
+     * are applied.
+     *
+     * source of fix
+     * https://stackoverflow.com/questions/21542870/remove-right-and-bottom-margin-on-infowindows
+     */
+    google.maps.event.addListener(largeInfowindow, 'domready', function () {
+
+        var $iwOuter = $('.gm-style-iw'),
+            $iwBackground = $iwOuter.prev(),
+            $closeDiv = $iwOuter.next();
+
+        // Added some js to help style close icons and default info box
+        $iwOuter.next().addClass('gmap-close-btn');
+        $closeDiv[0].innerHTML = '<img class="info-box-custom__icon" src="assets/img/close-icon.svg">';
+
+        console.log($closeDiv);
+
+        // Remove the background shadow DIV
+        $iwBackground.children(':nth-child(2)').css({'display': 'none'});
+
+        // Remove the white background DIV
+        $iwBackground.children(':nth-child(4)').css({'display': 'none'});
+
+    });
 
 
     /**
@@ -64,7 +96,8 @@ function initMap() {
         center: {lat: 49.288312, lng: -123.0183267},
         styles: styles,
         zoom: defaultZoom,
-        mapTypeControl: false
+        mapTypeControl: false,
+        clickableIcons: false
     });
 
 
@@ -76,7 +109,7 @@ function initMap() {
         var latNum = parseFloat(initialLocations[i].cmap_lat),
             lngNum = parseFloat(initialLocations[i].cmap_lng),
             name = initialLocations[i].title.rendered,
-            img = initialLocations[i]._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url,
+            img = initialLocations[i]._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url,
             description = initialLocations[i].content.rendered;
 
         // Object to hold  lat lng for markers
@@ -127,15 +160,15 @@ function initMap() {
             infowindow.marker = marker;
             infowindow.setContent('' +
                 '<div class="info-box-custom" style="max-width: 400px; text-align: center;">'
-                + '<h5>'
+                + '<h1 class="info-box-custom__title">'
                 + marker.name
-                + '</h5>'
-                + '<img style="max-width:300px; margin-bottom: 10px;" src="'
+                + '</h1>'
+                + '<img class="info-box-custom__img"  src="'
                 + marker.img
                 + '">'
-                + '<p>'
+                + '<span class="info-box-custom__description">'
                 + marker.description
-                + '</p>'
+                + '</span>'
                 + '</div>'
             );
 

@@ -2,16 +2,78 @@
  * Google Maps Style
  * Info boxes and canvas
  */
+.map-container {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  flex: 1;
+
+  transform: translate3d(0,0,0);
+  transition: transform .3s;
+
+  #map {
+    height: 100vh;
+  }
+
+}
+
 .gm-style-iw {
   text-align: center;
   overflow: scroll;
+  //background: rgba($black,10%);
+  border-radius: .2em;
+  padding: 0;
+  margin: 0;
+}
+
+.gm-style-iw {
+  width: 350px !important;
+  top: 15px !important;
+  background: rgba($black, .7);
+  border-radius: .2em;
+  box-shadow: 3px 3px 10px rgba($black, .75);
+  border: none;
+  border-radius: 5em 0 5em 0;
 }
 
 .info-box-custom {
   text-align: center;
-  animation: fadeIn 2000ms;
+  color: $white;
+  border-radius: .2em;
+  margin: 0;
+  padding: 1em;
+  animation: fadeIn 800ms;
+
+  &__icon {
+    background: red;
+  }
+
+  &__title {
+    font-size: 1.6em;
+    margin: 0 0 .5em 0;
+    font-weight: 300;
+    letter-spacing: 1px;
+  }
+
+  &__img {
+    max-width:310px !important;
+    margin-bottom: .5em !important;
+  }
+
+  &__description {
+    color: $white;
+    font-size: 1.1em;
+    line-height: 1.6em;
+  }
+
 }
 
-.infoBox {
-  animation: fadeIn 1000ms;
+.gmap-close-btn {
+  width: 36px !important;
+  height: 36px !important;
 }
+
+
+
+
+

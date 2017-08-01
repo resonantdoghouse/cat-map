@@ -1,6 +1,5 @@
 /**
  * Logo
- *
  */
 .logo {
   margin: 0 0 1em 1em;
@@ -9,44 +8,17 @@
   display: inline-block;
 }
 
-#sidebar-toggle-in {
-  animation: fadeIn 3000ms;
-  position: absolute;
-  top: .5em;
-  padding-left: .5em;
-  display: none;
-  img {
-    width: 24px;
-    height: 24px;
-  }
-}
-
 /**
  * Sidebar
- *
  */
 .sidebar-options {
   position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 99;
-  background: rgba(255,255,255,0.9);
-  width: $sidebarWidthMd;
-
-  @media screen and (max-width: $mdBreakpoint) {
-    width: $sidebarWidthSm;
-  }
-
-  @media screen and (min-width: $lgBreakpoint) {
-    width: $sidebarWidthLg;
-  }
-
-  &__nav {
-    background: $navbar-color;
-  }
+  width: 250px;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.9);
 
   &__nav__header {
+    position: relative;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
@@ -56,6 +28,42 @@
   &__show-hide {
     display: flex;
     flex-flow: row wrap;
+
+    justify-content: center;
+    background: rgba($black, .2);
+    margin: 0;
+    padding: 0;
+    &__button {
+      margin: .5em 0;
+      padding: .5em;
+    }
   }
 
+  /**
+   * Hamburger icon shown when menu is off screen
+   *
+   */
+  .toggle-btn {
+    position: absolute;
+    z-index: 100;
+    right: 202px;
+    transition: .3s;
+    &.sidebar-open {
+      right: 250px;
+    }
+  }
+
+  .btn-addcat {
+    &__img {
+      max-width: 32px;
+    }
+  }
+
+}
+
+/**
+ * Toggle Sidebar and Google Map
+ */
+.sidebar-open {
+  transform: translate3d(250px, 0, 0);
 }

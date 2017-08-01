@@ -17,7 +17,7 @@ var gulp = require('gulp'),
  * File paths
  * @type {string}
  */
-var SCRIPTS_PATH = './public/assets/js/',
+var SCRIPTS_PATH = './public/assets/js',
     SCRIPTS_BUILD_PATH = './public/assets/build/js',
     CSS_PATH = './public/assets/styles/**/*.scss',
     CSS_BUILD_PATH = './public/assets/build/styles';
@@ -95,6 +95,6 @@ gulp.task('watch', function () {
     console.log('Gulp Watch task running... 👀')
     require('./server.js')
     livereload.listen();
-    gulp.watch(SCRIPTS_PATH, ['scripts']);
-    gulp.watch(CSS_PATH, ['sass']);
+    gulp.watch(SCRIPTS_PATH + '/*.js', ['scripts']);
+    gulp.watch(CSS_PATH,  ['sass']);
 });

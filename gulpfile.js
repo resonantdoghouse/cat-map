@@ -92,8 +92,8 @@ gulp.task('default', function () {
  * Watch Task
  */
 gulp.task('watch', function () {
-    console.log('Gulp Watch task running... 👀')
-    require('./server.js')
+    console.log('Gulp Watch task running... 👀');
+    require('./server.js');
     livereload.listen();
     gulp.watch(SCRIPTS_PATH + '/*.js', ['scripts']);
     gulp.watch(CSS_PATH,  ['sass']);

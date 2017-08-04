@@ -1,4 +1,6 @@
-
+/**
+ * Toggles the sidebar
+ */
 $('.toggle-btn').click(function (e) {
     e.preventDefault();
 

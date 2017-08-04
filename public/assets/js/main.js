@@ -1,11 +1,13 @@
-// TODO: move js files to assets folder and add gulp build min 
 
 /**
  * Ajax request
  *
  */
+
+var urlQuery = '?_embed&per_page=10';
+
 $.ajax({
-    url: 'http://localhost:8888/wpdev/wp-json/wp/v2/cats-api?_embed&per_page=10',
+    url: '//catkittycat.com/wp-json/wp/v2/cats-api' + urlQuery,
     async: true,
     dataType: 'json',
     type: 'GET'

@@ -1,8 +1,17 @@
 # CMap
 
-### Google map for cats
+## Google map for cats
+knockout js & google map api
+getting json data from a WordPress site using wp rest api
 
-to run first clone the repo
-run npm install. 
+### install
+- clone the repo
+- npm install
 
-Gulp
+### Gulp Tasks
+
+gulp scripts ( compiles js )
+
+gulp sass ( processes scss )
+
+gulp watch ( runs with browsersync and watches for changes )

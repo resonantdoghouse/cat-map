@@ -14,4 +14,4 @@ gulp scripts ( compiles js )
 
 gulp sass ( processes scss )
 
-gulp watch ( runs with browsersync and watches for changes )
+gulp watch ( runs with livereload and watches for changes )

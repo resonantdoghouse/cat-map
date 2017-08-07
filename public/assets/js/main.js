@@ -1,4 +1,3 @@
-
 /**
  * Ajax request
  *
@@ -19,16 +18,14 @@ $.ajax({
                 initialLocations.push(data[i]);
             }
 
-            // initMap();
+            initMap();
             initViewModel();
             showAllMarkers();
 
         }
     )
-    .fail(function () {
-
-        alert('JSON file did not load... error');
-
+    .fail(function (jqXHR, textStatus) {
+        alert("Request failed: " + textStatus);
     });
 
 

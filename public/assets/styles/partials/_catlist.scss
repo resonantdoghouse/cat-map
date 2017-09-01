@@ -6,12 +6,14 @@
   &__cat {
     display:block;
     text-decoration: none;
-    color: $black;
+    color: darken($white, 2%);
     font-size: 1.2em;
     padding:.3em;
-    border-bottom: 1px solid rgba($black,.2);
-    background:rgba($white,.6);
-    transition:.3s;
+    border-bottom: 1px solid rgba($blue,.2);
+
+    background:rgba($blue,.2);
+
+    @include transition-base();
     &:hover {
       background:$black;
       color:$white;

@@ -1,50 +1,11 @@
-/**
- * Ajax request
- *
- */
+var animateMarker = function (marker) {
+    marker.setAnimation(google.maps.Animation.BOUNCE);
 
-var urlQuery = '?_embed&per_page=10';
+    setTimeout(function () {
+        marker.setAnimation(null);
+    }, 1480);
 
-$.ajax({
-    url: '//catkittycat.com/wp-json/wp/v2/cats-api' + urlQuery,
-    async: true,
-    dataType: 'json',
-    type: 'GET'
-})
-    .done(function (data) {
-
-            // push the returned data into initialLocations array
-            for (var i in data) {
-                initialLocations.push(data[i]);
-            }
-
-            initMap();
-            initViewModel();
-            showAllMarkers();
-
-        }
-    )
-    .fail(function (jqXHR, textStatus) {
-        alert("Request failed: " + textStatus);
-    });
-
-
-/**
- *
- * @param string
- * @param startsWith
- * @returns {boolean}
- */
-// ko.utils.stringStartsWith = function (string, startsWith) {
-//
-//     string = string || "";
-//
-//     if (startsWith.length > string.length)
-//         return false;
-//
-//     return string.substring(0, startsWith.length) === startsWith;
-//
-// };
+};
 
 
 /**
@@ -54,12 +15,10 @@ $.ajax({
  * @constructor
  */
 var Location = function (data) {
-
     this.id = ko.observable(data.id);
     this.name = ko.observable(data.title.rendered);
     this.lat = ko.observable(data.cmap_lat);
     this.lng = ko.observable(data.cmap_lng);
-
 };
 
 
@@ -72,13 +31,10 @@ var Location = function (data) {
 var ViewModel = function () {
 
     var self = this;
-
     self.locationList = ko.observableArray([]);
 
     initialLocations.forEach(function (locationItem) {
-
         self.locationList.push(new Location(locationItem));
-
     });
 
     /**
@@ -89,89 +45,65 @@ var ViewModel = function () {
      *
      */
     self.listClick = function (clickedItem, index) {
-
+        // $('.toggle-btn').click();
         var currentTarget = index.currentTarget.attributes[3].nodeValue,
             bounds = new google.maps.LatLngBounds();
 
         markers[currentTarget].setMap(map);
         markers[currentTarget].setAnimation(google.maps.Animation.BOUNCE);
 
+        google.maps.event.trigger(markers[currentTarget], 'click');
 
         setTimeout(function () {
             markers[currentTarget].setAnimation(null);
         }, 2200);
 
-
         bounds.extend(markers[currentTarget].position);
-
         map.fitBounds(bounds);
-
         ZoomObj.zoom();
-
     };
-
 
     /**
      * Show  all markers
      */
     self.showAllClicked = function () {
-
         showAllMarkers();
-
     }
 
     /**
      * Hide all markers
      */
     self.hideAllClicked = function () {
-
         hideAllMarkers();
-
     }
-
 
     /**
      * Filter list by input search
      */
     self.nameSearch = ko.observable('');
     self.filteredRecords = ko.computed(function () {
-
         var nameSearch = self.nameSearch().toLowerCase();
-
         return ko.utils.arrayFilter(self.locationList(), function (r) {
-
             return r.name().toLowerCase().indexOf(nameSearch) !== -1;
-
         });
-
-
     });
-
 
     /**
      * Monitor change in array and update map
      */
     self.filteredRecords.subscribe(function (updateList) {
-
         /**
          *  Fliters & sets markers
          *  function in map.js
          *  filters & sets markers
          */
-
         refineMarkers(updateList);
-
     });
-
-
 }
-
 
 /**
  * Init view model
  */
 function initViewModel() {
-
     ko.applyBindings(new ViewModel());
-
 }

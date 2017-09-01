@@ -5,75 +5,57 @@
 .map-container {
   position: relative;
   height: 100vh;
-  width: 100%;
-  flex: 1;
-
-  transform: translate3d(0,0,0);
-  transition: transform .3s;
-
+  width: 100vw;
+  flex: 1 1 auto;
+  //transform: translate3d(0, 0, 0);
+  @include transition-base(.6s);
   #map {
     height: 100vh;
   }
-
 }
 
-.gm-style-iw {
-  text-align: center;
-  overflow: scroll;
-  //background: rgba($black,10%);
-  border-radius: .2em;
-  padding: 0;
-  margin: 0;
-}
 
 .gm-style-iw {
+  @include transition-base(2s);
   width: 350px !important;
   top: 15px !important;
-  background: rgba($black, .7);
-  border-radius: .2em;
-  box-shadow: 3px 3px 10px rgba($black, .75);
-  border: none;
-  border-radius: 5em 0 5em 0;
+  background: rgba($black, .6);
+  box-shadow: 3px 3px 16px rgba($black, .6);
+  border: 1px solid $black;
+  border-radius: 5em 0;
 }
 
 .info-box-custom {
-  text-align: center;
-  color: $white;
-  border-radius: .2em;
   margin: 0;
   padding: 1em;
-  animation: fadeIn 800ms;
+  height: auto;
+  @include fade-in(1.2s);
 
   &__icon {
-    background: red;
+    background: $white;
   }
-
   &__title {
-    font-size: 1.6em;
-    margin: 0 0 .5em 0;
+    color: $white;
+    font-size: 2rem;
+    margin: 0 0 .2em 0;
     font-weight: 300;
     letter-spacing: 1px;
+    text-rendering: optimizeLegibility;
   }
-
   &__img {
-    max-width:310px !important;
+    max-width: 100% !important;
     margin-bottom: .5em !important;
   }
 
   &__description {
     color: $white;
-    font-size: 1.1em;
-    line-height: 1.6em;
+    font-size: 1rem;
+    line-height: 1.4rem;
   }
-
 }
 
 .gmap-close-btn {
-  width: 36px !important;
-  height: 36px !important;
+  width: 3em !important;
+  height: 3em !important;
+  border-radius: 100%;
 }
-
-
-
-
-

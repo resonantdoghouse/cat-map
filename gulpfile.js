@@ -61,6 +61,7 @@ gulp.task('scripts', function () {
     return gulp.src([
         SCRIPTS_PATH + '/lib/jquery.min.js',
         SCRIPTS_PATH + '/lib/knockout-3.4.2.js',
+        SCRIPTS_PATH + '/ajax.js',
         SCRIPTS_PATH + '/map.js',
         SCRIPTS_PATH + '/main.js',
         SCRIPTS_PATH + '/sidebar.js'
@@ -76,25 +77,17 @@ gulp.task('scripts', function () {
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(SCRIPTS_BUILD_PATH))
         .pipe(livereload());
-
 });
 
 
 /**
  * Default Task
+ * Watch
  */
 gulp.task('default', function () {
-    console.log('Default Gulp task run 🥛');
-});
-
-
-/**
- * Watch Task
- */
-gulp.task('watch', function () {
     console.log('Gulp Watch task running... 👀');
     require('./server.js');
     livereload.listen();
     gulp.watch(SCRIPTS_PATH + '/*.js', ['scripts']);
-    gulp.watch(CSS_PATH,  ['sass']);
+    gulp.watch(CSS_PATH, ['sass']);
 });

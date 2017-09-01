@@ -1,5 +1,6 @@
 /**
  * Setup variables data & functions
+ *
  */
 var map,
     showAllMarkers,
@@ -7,8 +8,9 @@ var map,
     markers = [],
     initialLocations = [],
     positionObj = {},
-    imageMarkerUrl = './assets/img/paw.png',
-    defaultZoom = 14;
+    defaultZoom = 14,
+    LargeInfoWindow = {},
+    imageMarkerUrl = './assets/img/cat.svg';
 
 
 /**
@@ -18,43 +20,225 @@ function initMap() {
 
     var imageMarker = {
         url: imageMarkerUrl,
-        size: new google.maps.Size(34, 32),
+        size: new google.maps.Size(32, 32),
         origin: new google.maps.Point(0, 0)
     };
 
-
     // custom map styles from: https://snazzymaps.com/
-    var styles = [{
-        "featureType": "landscape.natural",
-        "elementType": "geometry.fill",
-        "stylers": [{"visibility": "on"}, {"color": "#e0efef"}]
-    }, {
-        "featureType": "poi",
-        "elementType": "geometry.fill",
-        "stylers": [{"visibility": "on"}, {"hue": "#1900ff"}, {"color": "#c0e8e8"}]
-    }, {
-        "featureType": "road",
-        "elementType": "geometry",
-        "stylers": [{"lightness": 100}, {"visibility": "simplified"}]
-    }, {
-        "featureType": "road",
-        "elementType": "labels",
-        "stylers": [{"visibility": "off"}]
-    }, {
-        "featureType": "transit.line",
-        "elementType": "geometry",
-        "stylers": [{"visibility": "on"}, {"lightness": 700}]
-    }, {"featureType": "water", "elementType": "all", "stylers": [{"color": "#7dcdcd"}]}]
+    var styles = [
+        {
+            "featureType": "all",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "visibility": "on"
+                }
+            ]
+        },
+        {
+            "featureType": "all",
+            "elementType": "labels.text.fill",
+            "stylers": [
+                {
+                    "saturation": 36
+                },
+                {
+                    "color": "#19719e"
+                },
+                {
+                    "lightness": 40
+                }
+            ]
+        },
+        {
+            "featureType": "all",
+            "elementType": "labels.text.stroke",
+            "stylers": [
+                {
+                    "visibility": "on"
+                },
+                {
+                    "color": "#000000"
+                },
+                {
+                    "lightness": 16
+                }
+            ]
+        },
+        {
+            "featureType": "all",
+            "elementType": "labels.icon",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        },
+        {
+            "featureType": "administrative",
+            "elementType": "geometry.fill",
+            "stylers": [
+                {
+                    "color": "#000000"
+                },
+                {
+                    "lightness": 20
+                }
+            ]
+        },
+        {
+            "featureType": "administrative",
+            "elementType": "geometry.stroke",
+            "stylers": [
+                {
+                    "color": "#000000"
+                },
+                {
+                    "lightness": 17
+                },
+                {
+                    "weight": 1.2
+                }
+            ]
+        },
+        {
+            "featureType": "landscape",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "color": "#000000"
+                },
+                {
+                    "lightness": 20
+                }
+            ]
+        },
+        {
+            "featureType": "poi",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "color": "#000000"
+                },
+                {
+                    "lightness": 21
+                }
+            ]
+        },
+        {
+            "featureType": "road.highway",
+            "elementType": "geometry.fill",
+            "stylers": [
+                {
+                    "color": "#000000"
+                },
+                {
+                    "lightness": 17
+                }
+            ]
+        },
+        {
+            "featureType": "road.highway",
+            "elementType": "geometry.stroke",
+            "stylers": [
+                {
+                    "color": "#000000"
+                },
+                {
+                    "lightness": 29
+                },
+                {
+                    "weight": 0.2
+                }
+            ]
+        },
+        {
+            "featureType": "road.arterial",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "color": "#000000"
+                },
+                {
+                    "lightness": 18
+                }
+            ]
+        },
+        {
+            "featureType": "road.local",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "color": "#000000"
+                },
+                {
+                    "lightness": 16
+                }
+            ]
+        },
+        {
+            "featureType": "transit",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "color": "#000000"
+                },
+                {
+                    "lightness": 19
+                }
+            ]
+        },
+        {
+            "featureType": "water",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "color": "#115d7d"
+                },
+                {
+                    "lightness": 17
+                }
+            ]
+        }
+    ];
 
 
-    /**
-     * Setup info window to populate
-     *
-     * @type {google.maps.InfoWindow}
-     */
-    var largeInfowindow = new google.maps.InfoWindow({
-        padding: 0
-    });
+    LargeInfoWindow = {
+        window: function () {
+            return new google.maps.InfoWindow({padding: 0});
+        }
+    };
+
+    var newWindow = LargeInfoWindow.window();
+
+    var infoWindowObj = {
+        infoWindow: function populateInfoWindow(marker, infowindow) {
+            // Check to make sure the infowindow is not already opened on this marker.
+            if (infowindow.marker != marker) {
+                infowindow.marker = marker;
+                infowindow.setContent('' +
+                    '<div class="info-box-custom" style="max-width: 400px; text-align: center;">'
+                    + '<h1 class="info-box-custom__title">'
+                    + marker.name
+                    + '</h1>'
+                    + '<img class="info-box-custom__img"  src="'
+                    + marker.img
+                    + '">'
+                    + '<span class="info-box-custom__description">'
+                    + marker.description
+                    + '</span>'
+                    + '</div>'
+                );
+
+                infowindow.open(map, marker);
+
+                // Close info window
+                infowindow.addListener('closeclick', function () {
+                    infowindow.setMarker = null;
+                });
+            }
+        }
+    };
 
 
     /**
@@ -62,30 +246,19 @@ function initMap() {
      * the creation of the infowindow HTML structure 'domready'
      * and before the opening of the infowindow defined styles
      * are applied.
-     *
-     * source of fix
-     * https://stackoverflow.com/questions/21542870/remove-right-and-bottom-margin-on-infowindows
      */
-    google.maps.event.addListener(largeInfowindow, 'domready', function () {
-
+    google.maps.event.addListener(newWindow, 'domready', function () {
         var $iwOuter = $('.gm-style-iw'),
             $iwBackground = $iwOuter.prev(),
             $closeDiv = $iwOuter.next();
-
         // Added some js to help style close icons and default info box
         $iwOuter.next().addClass('gmap-close-btn');
         $closeDiv[0].innerHTML = '<img class="info-box-custom__icon" src="assets/img/close-icon.svg">';
-
-        console.log($closeDiv);
-
         // Remove the background shadow DIV
         $iwBackground.children(':nth-child(2)').css({'display': 'none'});
-
         // Remove the white background DIV
         $iwBackground.children(':nth-child(4)').css({'display': 'none'});
-
     });
-
 
     /**
      * Constructor setting up new map using the var 'map' and html id #map
@@ -100,12 +273,10 @@ function initMap() {
         clickableIcons: false
     });
 
-
     /**
      * Loop through initialLocations
      */
     for (var i = 0; i < initialLocations.length; i++) {
-
         var latNum = parseFloat(initialLocations[i].cmap_lat),
             lngNum = parseFloat(initialLocations[i].cmap_lng),
             name = initialLocations[i].title.rendered,
@@ -115,7 +286,6 @@ function initMap() {
         // Object to hold  lat lng for markers
         positionObj = {lat: latNum, lng: lngNum};
 
-
         /**
          * Create a marker per location, and put into markers array.
          *
@@ -123,7 +293,7 @@ function initMap() {
          */
         var marker = new google.maps.Marker({
             position: positionObj,
-            icon: imageMarker,
+            icon: imageMarkerUrl,
             name: name,
             img: img,
             description: description,
@@ -134,13 +304,17 @@ function initMap() {
         // Push the marker to our array of markers.
         markers.push(marker);
 
-
         /**
          * Create an onclick event to open an infowindow at each marker.
          */
         marker.addListener('click', function () {
 
-            populateInfoWindow(this, largeInfowindow);
+            // var lg = LargeInfoWindow.window();
+            infoWindowObj.infoWindow(this, newWindow);
+
+            // infoWindowObj
+
+            animateMarker(this);
 
         });
 
@@ -148,43 +322,20 @@ function initMap() {
 
 
     /**
-     * Populate info windows
-     * @param marker
-     * @param infowindow
+     * Google map event listener
+     * bounds changed check zoom
      */
-    function populateInfoWindow(marker, infowindow) {
-
-        // Check to make sure the infowindow is not already opened on this marker.
-        if (infowindow.marker != marker) {
-
-            infowindow.marker = marker;
-            infowindow.setContent('' +
-                '<div class="info-box-custom" style="max-width: 400px; text-align: center;">'
-                + '<h1 class="info-box-custom__title">'
-                + marker.name
-                + '</h1>'
-                + '<img class="info-box-custom__img"  src="'
-                + marker.img
-                + '">'
-                + '<span class="info-box-custom__description">'
-                + marker.description
-                + '</span>'
-                + '</div>'
-            );
-
-            infowindow.open(map, marker);
-
-            infowindow.addListener('closeclick', function () {
-
-                infowindow.setMarker = null;
-
+    ZoomObj = {
+        zoom: function () {
+            zoom = map.getZoom();
+            google.maps.event.addListenerOnce(map, 'bounds_changed', function () {
+                map.setZoom(zoom > 15 ? 15 : zoom);
             });
-
         }
     }
 
-
     /**
+     * showAllMarkers
      * Set and show markers
      */
     showAllMarkers = function (data) {
@@ -201,23 +352,20 @@ function initMap() {
         }
 
         ZoomObj.zoom();
-
         map.fitBounds(bounds);
 
-    }
+    };
 
+    showAllMarkers();
 
     /**
      * Hide all markers
      */
     hideAllMarkers = function () {
-
         for (var i = 0; i < markers.length; i++) {
             markers[i].setMap(null);
         }
-
-    }
-
+    };
 
     /**
      * Search filter refine markers
@@ -239,40 +387,12 @@ function initMap() {
         });
 
         ZoomObj.zoom();
-
         map.fitBounds(bounds);
 
-    }
-
-
-    /**
-     * Google map event listener
-     * bounds changed check zoom
-     */
-    ZoomObj = {
-        zoom: function () {
-
-            zoom = map.getZoom();
-
-            google.maps.event.addListenerOnce(map, 'bounds_changed', function () {
-                //
-                // function applyZoom(){
-                //     map.setZoom(defaultZoom);
-                // }
-                // setTimeout(applyZoom, 100);
-
-                map.setZoom(zoom > 15 ? 15 : zoom);
-
-
-                // var currentZoom = this.getZoom();
-                // if (currentZoom > defaultZoom || currentZoom < defaultZoom) {
-                // this.setZoom(defaultZoom);
-                // }
-
-            });
-
-        }
-    }
+    };
 
 
 }
+
+
+

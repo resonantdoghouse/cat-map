@@ -8,41 +8,25 @@
     <link rel="stylesheet" href="assets/build/styles/styles.css">
 </head>
 <body>
-
 <main class="site-wrapper">
-
     <nav id="sidebar-options" class="sidebar-options">
-
         <header class="sidebar-options__nav__header">
-
-            <!--
-            /**
-             * Logo
-             *
-            -->
+            <!-- Logo -->
             <h1 class="logo">Cat Map</h1>
-
-
-            <!--
-            /**
-             * Sidebar Toggle
-             *
-            -->
+            <!-- Sidebar Toggle -->
             <button id="sidebar-toggle" class="toggle-btn">
-                <img src="assets/img/hamburger-icon.svg">
+                <svg version="1.1" baseProfile="basic"
+                   xmlns="http://www.w3.org/2000/svg"
+                   xmlns:xlink="http://www.w3.org/1999/xlink"
+                   x="0px" y="0px" width="32px" height="32px"
+                   viewBox="0 0 32 32" xml:space="preserve">
+                  <path class="hamburger-color" transform="matrix(0.032,0,0,0.032,0,2)" d="M 0 0 L 1000 0 L 1000 125 L 0 125 L 0 0 M 0 250 L 1000 250 L 1000 375 L 0 375 L 0 250 M 0 500 L 1000 500 L 1000 625 L 0 625 L 0 500 M 0 750 L 1000 750 L 1000 875 L 0 875 L 0 750"/>
+                </svg>
             </button>
-
         </header>
-
-
-        <!--
-        /**
-         * Show Hide Buttons
-         *
-        -->
+        <!-- Show Hide Buttons -->
         <ul class="sidebar-options__show-hide" role="group"
             aria-label="Show-hide cats">
-
             <li>
                 <button data-bind="click: showAllClicked"
                         type="button"
@@ -50,7 +34,6 @@
                     Show Cats
                 </button>
             </li>
-
             <li>
                 <button data-bind="click: hideAllClicked"
                         type="button"
@@ -58,29 +41,13 @@
                     Hide Cats
                 </button>
             </li>
-
         </ul>
-
-
-        <!--
-        /**
-         * Filter results with Knockout.js
-         *
-        -->
+        <!-- Filter results with Knockout.js -->
         <form class="cat-filter">
-            <input class="cat-filter-input"
-                   placeholder="Filter Cats"
-                   data-bind="value: nameSearch,
-                        valueUpdate: 'afterkeydown'"/>
+            <input class="cat-filter-input" placeholder="Filter Cats"
+                   data-bind="value: nameSearch, valueUpdate: 'afterkeydown'"/>
         </form>
-
-
-        <!--
-        /**
-         * Knockout.js Observable
-         * Listed Cats and click binding
-         *
-        -->
+        <!-- Knockout.js Observable Listed Cats and click binding -->
         <ul class="catlist" data-bind="foreach: filteredRecords">
             <li>
                 <a href="#"
@@ -94,28 +61,18 @@
                 </a>
             </li>
         </ul>
-
-
     </nav>
-
-
-    <!--
-    /**
-     * Google Map Container
-     *
-    -->
+    <!-- Google Map Container -->
     <section class="map-container">
         <div id="map"></div>
     </section>
-
-
 </main>
 
-
-<script async defer src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyDlyxp0cJArQJMs86CbXOjl5Y_CYDLkCi4&v=3&callback=initMap"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyDlyxp0cJArQJMs86CbXOjl5Y_CYDLkCi4&v=3" async
+        defer></script>
 <script src="assets/build/js/scripts.js"></script>
-<script src="http://localhost:35729/livereload.js"></script>
 
+<script src="http://localhost:35729/livereload.js"></script>
 
 </body>
 </html>

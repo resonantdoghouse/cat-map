@@ -9,3 +9,11 @@
     @content;
   }
 }
+
+@mixin transition-base($time: .5s) {
+  transition: $time;
+}
+
+@mixin fade-in($time: .5s) {
+  animation: fadeIn $time;
+}

@@ -1,31 +1,26 @@
 .cat-filter {
-  background: $black;
-
   input {
-
     text-align: center;
-    border:none;
-
+    border: none;
     width: 100%;
-    padding: .5em;
-
-    letter-spacing:1px;
-
-    background:$white;
-    color:$black;
-
-
-
-    transition:.5s;
-    &:focus {
-      outline:0;
-      background:$black;
-      color: $white;
-    }
-
+    padding: 1em;
+    letter-spacing: 1px;
+    background: $blue;
+    color: $white;
+    transition: .5s;
     &::placeholder {
-      letter-spacing:1px;
-      color: $black;
+      letter-spacing: 1px;
+      color: $white;
+      @include transition-base();
+    }
+    &:focus {
+      outline: 0;
+      background: darken($white,2%);
+      color: $white;
+      &::placeholder {
+        letter-spacing: 2px;
+        color: $black;
+      }
     }
   }
 }

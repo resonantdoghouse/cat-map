@@ -15,27 +15,31 @@
   position: absolute;
   width: 250px;
   height: 100vh;
-  background: rgba(255, 255, 255, 0.9);
-
+  background: rgba($black, 0.1);
   &__nav__header {
-    position: relative;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
     align-content: space-between;
   }
-
   &__show-hide {
     display: flex;
-    flex-flow: row wrap;
-
+    flex-flow: row nowrap;
     justify-content: center;
     background: rgba($black, .2);
     margin: 0;
     padding: 0;
     &__button {
+      background: lighten($black, 40%);
+      border: 0;
+      box-shadow: none;
       margin: .5em 0;
-      padding: .5em;
+      font-size: 1.5rem;
+      padding: .5em 1em;
+      @include transition-base();
+      &:hover {
+        background: lighten($black, 60%);
+      }
     }
   }
 
@@ -47,19 +51,25 @@
     position: absolute;
     z-index: 100;
     right: 202px;
-    transition: .3s;
+    background:lighten($blue, 25%);
+    @include transition-base(.6s);
+
+    .hamburger-color {
+      background: black !important;
+      fill: pink;
+    }
+
     &.sidebar-open {
       right: 250px;
     }
   }
-
   .btn-addcat {
     &__img {
       max-width: 32px;
     }
   }
-
 }
+
 
 /**
  * Toggle Sidebar and Google Map

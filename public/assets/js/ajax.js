@@ -4,8 +4,6 @@
  */
 var urlQuery = '?_embed&per_page=10';
 
-console.log('main');
-
 $.ajax({
     url: 'https://catkittycat.com/wp-json/wp/v2/cats-api' + urlQuery,
     async: true,

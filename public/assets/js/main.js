@@ -68,14 +68,14 @@ var ViewModel = function () {
      */
     self.showAllClicked = function () {
         showAllMarkers();
-    }
+    };
 
     /**
      * Hide all markers
      */
     self.hideAllClicked = function () {
         hideAllMarkers();
-    }
+    };
 
     /**
      * Filter list by input search
@@ -92,14 +92,13 @@ var ViewModel = function () {
      * Monitor change in array and update map
      */
     self.filteredRecords.subscribe(function (updateList) {
+;
         /**
-         *  Fliters & sets markers
-         *  function in map.js
-         *  filters & sets markers
+         *  Filters & sets markers, function in map.js
          */
         refineMarkers(updateList);
     });
-}
+};
 
 /**
  * Init view model

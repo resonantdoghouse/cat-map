@@ -16,7 +16,7 @@
     &:focus {
       outline: 0;
       background: darken($white,2%);
-      color: $white;
+      color: $black;
       &::placeholder {
         letter-spacing: 2px;
         color: $black;

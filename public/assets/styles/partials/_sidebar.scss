@@ -25,51 +25,73 @@
   &__show-hide {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: center;
-    background: rgba($black, .2);
+    justify-content: space-between;
+    align-items: stretch;
+    align-content: stretch;
     margin: 0;
     padding: 0;
+
+    li {
+      flex: 2 2 auto;
+    }
+
     &__button {
-      background: lighten($black, 40%);
+      width:100%;
+      min-height:3em;
+      background: darken($blue, 50%);
+      color: darken($white,10%);
       border: 0;
       box-shadow: none;
-      margin: .5em 0;
-      font-size: 1.5rem;
-      padding: .5em 1em;
+      text-transform: uppercase;
+      font-size: .8rem;
+      letter-spacing: 1px;
+      line-height: 1.3rem;
       @include transition-base();
       &:hover {
-        background: lighten($black, 60%);
+        background: darken($blue, 40%);
       }
     }
   }
 
   /**
    * Hamburger icon shown when menu is off screen
-   *
    */
   .toggle-btn {
     position: absolute;
     z-index: 100;
     right: 202px;
-    background:lighten($blue, 25%);
+    background: $white;
+    border: 1px solid $blue;
+
     @include transition-base(.6s);
 
     .hamburger-color {
-      background: black !important;
-      fill: pink;
+      @include transition-base(1s);
+      fill: $blue;
     }
 
     &.sidebar-open {
       right: 250px;
+      background: lighten($blue,5%);
+      border: 2px solid  lighten($blue, 20%);
+      .hamburger-color {
+        fill: $white;
+      }
     }
+    &:focus {
+      outline: 0;
+      border: 2px solid  lighten($blue, 20%);
+    }
+
   }
+
   .btn-addcat {
     &__img {
       max-width: 32px;
     }
   }
-}
 
+}
 
 /**
  * Toggle Sidebar and Google Map

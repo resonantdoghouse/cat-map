@@ -568,8 +568,9 @@ function initMap() {
 
         var bounds = new google.maps.LatLngBounds();
 
-        // console.log(data);
-        console.log(markers);
+        // console.log('%c All Markers ⭐️', 'font-size: 1.8em; background: #ccc; color: #a29c9b');
+        // console.log(markers);
+        // console.log('\n');
 
         var refinedMarkers = [];
 
@@ -581,21 +582,52 @@ function initMap() {
 
             refinedMarkers.push(currentLatLng);
 
-            console.log('Name: ' + val.name());
-            console.log('refined markers: ' + refinedMarkers);
-            console.log('Initial Locations: ' + initialLocations);
-
-            console.log('refined markers i: ' + refinedMarkers[i]);
+            /**
+             * Debugging 🐞
+             */
+            // console.log('%c A Cat! 🐈 ', 'font-size: 1.8em; background: #eee; color: #a29c9b');
+            // console.log('Name: ' + val.name());
+            //
+            //
+            // console.log('refined markers: ' + refinedMarkers);
+            //
+            //
+            // console.log('%c Initial Locations: ', 'background: #000; color: #fff');
+            // console.log(initialLocations);
+            //
+            //
+            // console.log('refined markers i: ' + refinedMarkers[i]);
+            //
+            //
+            // console.log('%c DATA 🤖', 'font-size: 1.8em; background: #eee; color: #a29c9b');
+            // console.log(data[i]);
 
 
             var iLLat = initialLocations[i].cmap_lat,
                 iLLng = initialLocations[i].cmap_lng,
                 iLLatLng = iLLat + ',' + iLLng;
 
-            console.log('iLLatLng: ' + iLLatLng);
+            console.log('%c iLLatLng', 'font-size: 1.2em; background: #eee; color: #a29c9b');
+            console.log(iLLatLng);
+            console.log('%c refinedMarkers', 'font-size: 1.2em; background: #a29c9b; color: #eee');
+            console.log(refinedMarkers[i]);
+
+
+            if (refinedMarkers[i] === iLLatLng) {
+                // console.log(refinedMarkers[i]);
+                // console.log(iLLatLng);
+                console.log('%c same', 'color: red; font-size: 1.2em;');
+                // console.log();
+            }
+
+            // refinedMarkers[i];
+            // iLLat
+            // iLLatLng
+
 
             markers[1].setMap(map);
             bounds.extend(markers[1].position);
+
 
         });
 

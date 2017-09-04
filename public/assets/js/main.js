@@ -37,31 +37,43 @@ var ViewModel = function () {
         self.locationList.push(new Location(locationItem));
     });
 
+
     /**
-     * Click list handler
+     * listClick
      *
+     * TODO make this function global
      * @param clickedItem
      * @param index
      *
      */
     self.listClick = function (clickedItem, index) {
-        // $('.toggle-btn').click();
+
         var currentTarget = index.currentTarget.attributes[3].nodeValue,
-            bounds = new google.maps.LatLngBounds();
+            currentTargetId = index.currentTarget.attributes[4].nodeValue,
+            bounds = new google.maps.LatLngBounds(),
+            fltMarkers = markers.filter(function (data) {
+                return data.id === clickedItem.id();
+            });
 
-        markers[currentTarget].setMap(map);
-        markers[currentTarget].setAnimation(google.maps.Animation.BOUNCE);
+        fltMarkers[0].setMap(map);
+        fltMarkers[0].setAnimation(google.maps.Animation.BOUNCE);
 
-        google.maps.event.trigger(markers[currentTarget], 'click');
+        google.maps.event.trigger(fltMarkers[0], 'click');
 
         setTimeout(function () {
             markers[currentTarget].setAnimation(null);
         }, 2200);
 
-        bounds.extend(markers[currentTarget].position);
+
+        // Todo update this
+        bounds.extend(fltMarkers[0].position);
+
         map.fitBounds(bounds);
         ZoomObj.zoom();
+
+
     };
+
 
     /**
      * Show  all markers
@@ -70,6 +82,7 @@ var ViewModel = function () {
         showAllMarkers();
     };
 
+
     /**
      * Hide all markers
      */
@@ -77,8 +90,10 @@ var ViewModel = function () {
         hideAllMarkers();
     };
 
+
     /**
      * Filter list by input search
+     *
      */
     self.nameSearch = ko.observable('');
     self.filteredRecords = ko.computed(function () {
@@ -92,7 +107,7 @@ var ViewModel = function () {
      * Monitor change in array and update map
      */
     self.filteredRecords.subscribe(function (updateList) {
-;
+
         /**
          *  Filters & sets markers, function in map.js
          */

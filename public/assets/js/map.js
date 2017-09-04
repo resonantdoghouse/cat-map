@@ -414,7 +414,6 @@ function initMap() {
         }
     };
 
-
     /**
      * The google.maps.event.addListener() event waits for
      * the creation of the infowindow HTML structure 'domready'
@@ -455,8 +454,8 @@ function initMap() {
             lngNum = parseFloat(initialLocations[i].cmap_lng),
             name = initialLocations[i].title.rendered,
             img = initialLocations[i]._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url,
-            description = initialLocations[i].content.rendered;
-
+            description = initialLocations[i].content.rendered,
+            id = initialLocations[i].id;
 
         // Object to hold  lat lng for markers
         positionObj = {lat: latNum, lng: lngNum};
@@ -474,7 +473,7 @@ function initMap() {
             img: img,
             description: description,
             animation: google.maps.Animation.DROP,
-            id: i
+            id: id
         });
 
         // Push the marker to our array of markers.
@@ -530,7 +529,6 @@ function initMap() {
 
     };
 
-    showAllMarkers();
 
     /**
      * Hide all markers
@@ -550,51 +548,15 @@ function initMap() {
 
         hideAllMarkers();
 
-        var bounds = new google.maps.LatLngBounds(),
-            refinedMarkers = [];
+        var bounds = new google.maps.LatLngBounds();
 
         $(data).each(function (i, val) {
 
-            var currentLat = val.lat(),
-                currentLng = val.lng(),
-                currentLatLng = currentLat + ',' + currentLng,
-                iLLat = initialLocations[i].cmap_lat,
-                iLLng = initialLocations[i].cmap_lng,
-                iLLatLng = iLLat + ',' + iLLng;
-
-            refinedMarkers.push({'name': val.name(), 'location': currentLatLng});
-
-            var filteredCats = initialLocations.filter(function (data) {
-
-                var filteredLat = data.cmap_lat;
-                var filteredLng = data.cmap_lng;
-                var markerLat = markers[i].position.lat();
-                var markerLng = markers[i].position.lng();
-                var filteredMarkers = markerLat + ',' + markerLng;
-
-                if (filteredLat === currentLat) {
-                    console.log('works');
-                }
-
-                filteredLatLng = filteredLat + ',' + filteredLng;
-
-                if (filteredLatLng === iLLatLng) {
-                    console.log('Filtered Lat Lng');
-                    console.log(filteredLatLng);
-                }
-
-                return data;
-                // return data.title.rendered === 'Mina';
-
+            var fltMarkers = markers.filter(function (data) {
+                return data.id === val.id();
             });
 
-            /**
-             * Set Map
-             */
-
-            console.log(markers);
-
-            markers[i].setMap(map);
+            fltMarkers[0].setMap(map);
             bounds.extend(markers[i].position);
 
         });
@@ -604,4 +566,7 @@ function initMap() {
 
     };
 
+    showAllMarkers();
+
 }
+

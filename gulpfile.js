@@ -61,6 +61,7 @@ gulp.task('scripts', function () {
     return gulp.src([
         SCRIPTS_PATH + '/lib/jquery.min.js',
         SCRIPTS_PATH + '/lib/knockout-3.4.2.js',
+        SCRIPTS_PATH + '/init.js',
         SCRIPTS_PATH + '/ajax.js',
         SCRIPTS_PATH + '/map.js',
         SCRIPTS_PATH + '/main.js',

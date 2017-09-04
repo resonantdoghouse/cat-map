@@ -1,22 +1,4 @@
 /**
- * Setup variables data & functions
- *
- */
-var map,
-    showAllMarkers,
-    hideAllMarkers,
-    markers = [],
-    initialLocations = [],
-    positionObj = {},
-    defaultZoom = 14,
-    LargeInfoWindow = {},
-    imageMarkerUrl = './assets/img/cat.svg';
-
-var gmapError = function () {
-    alert("🌵 Failed to load Google Maps script 🤷 💣💣💣️");
-};
-
-/**
  * Initialize the map
  */
 function initMap() {
@@ -475,8 +457,10 @@ function initMap() {
             img = initialLocations[i]._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url,
             description = initialLocations[i].content.rendered;
 
+
         // Object to hold  lat lng for markers
         positionObj = {lat: latNum, lng: lngNum};
+
 
         /**
          * Create a marker per location, and put into markers array.
@@ -558,7 +542,7 @@ function initMap() {
     };
 
     /**
-     * Search filter refine markers
+     * Refine Markers
      *
      * @param data
      */
@@ -566,68 +550,52 @@ function initMap() {
 
         hideAllMarkers();
 
-        var bounds = new google.maps.LatLngBounds();
-
-        // console.log('%c All Markers ⭐️', 'font-size: 1.8em; background: #ccc; color: #a29c9b');
-        // console.log(markers);
-        // console.log('\n');
-
-        var refinedMarkers = [];
+        var bounds = new google.maps.LatLngBounds(),
+            refinedMarkers = [];
 
         $(data).each(function (i, val) {
 
             var currentLat = val.lat(),
                 currentLng = val.lng(),
-                currentLatLng = currentLat + ',' + currentLng;
-
-            refinedMarkers.push(currentLatLng);
-
-            /**
-             * Debugging 🐞
-             */
-            // console.log('%c A Cat! 🐈 ', 'font-size: 1.8em; background: #eee; color: #a29c9b');
-            // console.log('Name: ' + val.name());
-            //
-            //
-            // console.log('refined markers: ' + refinedMarkers);
-            //
-            //
-            // console.log('%c Initial Locations: ', 'background: #000; color: #fff');
-            // console.log(initialLocations);
-            //
-            //
-            // console.log('refined markers i: ' + refinedMarkers[i]);
-            //
-            //
-            // console.log('%c DATA 🤖', 'font-size: 1.8em; background: #eee; color: #a29c9b');
-            // console.log(data[i]);
-
-
-            var iLLat = initialLocations[i].cmap_lat,
+                currentLatLng = currentLat + ',' + currentLng,
+                iLLat = initialLocations[i].cmap_lat,
                 iLLng = initialLocations[i].cmap_lng,
                 iLLatLng = iLLat + ',' + iLLng;
 
-            console.log('%c iLLatLng', 'font-size: 1.2em; background: #eee; color: #a29c9b');
-            console.log(iLLatLng);
-            console.log('%c refinedMarkers', 'font-size: 1.2em; background: #a29c9b; color: #eee');
-            console.log(refinedMarkers[i]);
+            refinedMarkers.push({'name': val.name(), 'location': currentLatLng});
 
+            var filteredCats = initialLocations.filter(function (data) {
 
-            if (refinedMarkers[i] === iLLatLng) {
-                // console.log(refinedMarkers[i]);
-                // console.log(iLLatLng);
-                console.log('%c same', 'color: red; font-size: 1.2em;');
-                // console.log();
-            }
+                var filteredLat = data.cmap_lat;
+                var filteredLng = data.cmap_lng;
+                var markerLat = markers[i].position.lat();
+                var markerLng = markers[i].position.lng();
+                var filteredMarkers = markerLat + ',' + markerLng;
 
-            // refinedMarkers[i];
-            // iLLat
-            // iLLatLng
+                if (filteredLat === currentLat) {
+                    console.log('works');
+                }
 
+                filteredLatLng = filteredLat + ',' + filteredLng;
 
-            markers[1].setMap(map);
-            bounds.extend(markers[1].position);
+                if (filteredLatLng === iLLatLng) {
+                    console.log('Filtered Lat Lng');
+                    console.log(filteredLatLng);
+                }
 
+                return data;
+                // return data.title.rendered === 'Mina';
+
+            });
+
+            /**
+             * Set Map
+             */
+
+            console.log(markers);
+
+            markers[i].setMap(map);
+            bounds.extend(markers[i].position);
 
         });
 
